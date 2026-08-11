@@ -17,7 +17,7 @@ The overall architecture separates the slower position dynamics from
 the faster attitude dynamics, enabling independent controller design
 while maintaining the interaction between the two loops.
 
-![Proposed Quadrotor Control System](pics/control architecture.png)
+![Proposed Quadrotor Control System](pics/control_architecture.png)
 
 *Figure: Block diagram of the proposed quadrotor control system.*
 
