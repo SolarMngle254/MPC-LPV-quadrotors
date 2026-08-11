@@ -69,11 +69,9 @@ $$
 \rightarrow
 \mathrm{Position\ Controller\ (FL)}
 \rightarrow
-\mathrm{Attitude\ Reference}
+\mathrm{Attitude\ Controller\ (LPV\-\MPC)}
 \rightarrow
-\mathrm{Attitude\ Controller\ (LPV\!-\!MPC)}
-\rightarrow
-\mathrm{Quadrotor}
+\mathrm{PLant Model -- Quadrotors}
 $$
 
 The complete framework is validated through MATLAB/Simulink
