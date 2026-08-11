@@ -11,34 +11,41 @@ The inertial frame is used to describe global position and
 translational motion, while the body-fixed frame is used for
 attitude dynamics and actuator-related quantities.
 
-![Drone Orientation and Reference Frames](../pics/reference_frames.png)
+<p align="center">
+  <img src="../pics/reference_frames.png"
+       alt="Drone Orientation and Reference Frames"
+       width="700">
+</p>
 
-*Figure: Drone Orientation and Reference Frames.*
-
+<p align="center">
+  <i>Figure: Drone Orientation and Reference Frames.</i>
+</p>
 
 ## 2.2 Earth-fixed Inertial Frame
 
 The Earth-fixed inertial frame is defined as
 
-\[
-\mathcal{F}_E = \{O_E, X_E, Y_E, Z_E\}.
-\]
+$$
+\mathcal{F}_E = \{O_E,\ X_E,\ Y_E,\ Z_E\}.
+$$
 
 The frame is fixed to the ground and follows the right-hand rule.
-The East-North-Up (ENU) convention is adopted, with \(Z_E\)
+The East-North-Up (ENU) convention is adopted, with $Z_E$
 representing the upward direction.
 
 The quadrotor position is expressed in this frame as
 
-\[
-\mathbf{p}
-=
-[x,\ y,\ z]^T.
-\]
+$$
+\mathbf{p} =
+\begin{bmatrix}
+x \\
+y \\
+z
+\end{bmatrix}.
+$$
 
 The inertial frame is the working frame for the position controller
 and global trajectory tracking.
-
 
 ## 2.3 Body-fixed Frame
 
@@ -47,21 +54,23 @@ located at the center of mass.
 
 The body axes are defined as:
 
-- \(X_B\): forward direction
-- \(Y_B\): right direction
-- \(Z_B\): body vertical axis
+- $X_B$: forward direction
+- $Y_B$: right direction
+- $Z_B$: body vertical axis
 
 The body-fixed frame is used to describe thrust, moments, and
 angular velocity:
 
-\[
-\boldsymbol{\omega}
-=
-[p,\ q,\ r]^T.
-\]
+$$
+\boldsymbol{\omega} =
+\begin{bmatrix}
+p \\
+q \\
+r
+\end{bmatrix}.
+$$
 
 It is also the working frame for the attitude controller.
-
 
 ## 2.4 Coordinate Transformation
 
@@ -71,35 +80,45 @@ coordinate transformation matrices.
 
 The rotation matrix
 
-\[
-R(\eta)
-\]
+$$
+R(\boldsymbol{\eta})
+$$
 
 maps vectors from the body-fixed frame to the inertial frame.
 
 The angular velocity transformation matrix
 
-\[
-T(\eta)
-\]
+$$
+T(\boldsymbol{\eta})
+$$
 
-relates body angular velocity to the time derivatives of the
-Euler angles.
+relates body angular velocity to the time derivatives of the Euler
+angles.
 
 The vehicle attitude is described by the Euler angles:
 
-\[
-\phi,\quad \theta,\quad \psi
-\]
+$$
+\boldsymbol{\eta} =
+\begin{bmatrix}
+\phi \\
+\theta \\
+\psi
+\end{bmatrix},
+$$
 
 corresponding to roll, pitch, and yaw.
 
-A standard \(Z-Y-X\) yaw-pitch-roll rotation sequence is adopted.
+A standard Z-Y-X yaw-pitch-roll rotation sequence is adopted.
 
-![Euler Angle Formation](../pic/euler_angle_formation.png)
+<p align="center">
+  <img src="../pics/euler_angle_formation.png"
+       alt="Euler Angle Formation via Successive Rotations"
+       width="700">
+</p>
 
-*Figure: Euler Angle Formation via Successive Rotations.*
-
+<p align="center">
+  <i>Figure: Euler Angle Formation via Successive Rotations.</i>
+</p>
 
 ## 2.5 Role in the Dynamic Model
 
