@@ -26,7 +26,7 @@ attitude dynamics and actuator-related quantities.
 The Earth-fixed inertial frame is defined as
 
 $$
-\mathcal{F}_E = \{O_E,\ X_E,\ Y_E,\ Z_E\}.
+\mathcal{F}_E = \lbrace O_E,\ X_E,\ Y_E,\ Z_E \rbrace
 $$
 
 The frame is fixed to the ground and follows the right-hand rule.
