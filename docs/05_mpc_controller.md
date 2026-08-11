@@ -1,0 +1,286 @@
+# 05. LPV-MPC Controller
+
+## 5.1 Overview
+
+The LPV-MPC controller forms the inner loop of the quadrotor
+control architecture.
+
+It receives the reference attitude from the position controller
+and computes the control moments for roll, pitch, and yaw.
+
+The attitude control input vector is defined as
+
+```math
+\mathbf{U}_a =
+\begin{bmatrix}
+U_2 & U_3 & U_4
+\end{bmatrix}^{T}
+```
+
+where:
+
+- $U_2$: roll control moment
+- $U_3$: pitch control moment
+- $U_4$: yaw control moment
+
+The controller combines:
+
+- LPV modeling of the attitude dynamics
+- Multi-step state prediction
+- Quadratic cost optimization
+- Input and state constraints
+- Receding-horizon control
+
+## 5.2 Control Input Increment
+
+To obtain smooth control signals, the MPC operates on the
+incremental control input
+
+```math
+\Delta\mathbf{u}_{a,k}
+=
+\mathbf{u}_{a,k}
+-
+\mathbf{u}_{a,k-1}
+```
+
+The previous control input is included in the augmented state:
+
+```math
+\mathbf{x}_{aug,k}
+=
+\begin{bmatrix}
+\mathbf{x}_{a,k} \\
+\mathbf{u}_{a,k-1}
+\end{bmatrix}
+```
+
+The augmented model is then used to predict the future attitude
+states over the MPC prediction horizon.
+
+## 5.3 Prediction Model
+
+For a prediction horizon $N_p$, the future state trajectory is
+expressed in compact matrix form as
+
+```math
+\hat{X}
+=
+\hat{\mathcal{A}}\mathbf{x}_{aug,k}
++
+\hat{\mathcal{B}}\Delta U
+```
+
+where:
+
+```math
+\Delta U
+=
+\begin{bmatrix}
+\Delta\mathbf{u}_{a,k} \\
+\Delta\mathbf{u}_{a,k+1} \\
+\vdots \\
+\Delta\mathbf{u}_{a,k+N_p-1}
+\end{bmatrix}
+```
+
+and
+
+```math
+\hat{X}
+=
+\begin{bmatrix}
+\hat{\mathbf{x}}_{aug,k+1} \\
+\hat{\mathbf{x}}_{aug,k+2} \\
+\vdots \\
+\hat{\mathbf{x}}_{aug,k+N_p}
+\end{bmatrix}
+```
+
+In this project, the prediction horizon is
+
+```math
+N_p = 5
+```
+
+The prediction model allows the controller to evaluate the future
+effect of the control sequence before applying the first control
+action.
+
+## 5.4 Cost Function
+
+The MPC minimizes a quadratic objective consisting of two main
+terms:
+
+- Tracking error
+- Control effort
+
+The tracking error is defined as
+
+```math
+\mathbf{e}_k
+=
+\mathbf{x}_{a,k}
+-
+\mathbf{x}_{a,ref,k}
+```
+
+The quadratic cost function is
+
+```math
+J
+=
+\sum_{k=0}^{N_p-1}
+\left(
+\mathbf{e}_k^{T}Q\mathbf{e}_k
++
+\Delta\mathbf{u}_{a,k}^{T}
+R
+\Delta\mathbf{u}_{a,k}
+\right)
+```
+
+where:
+
+- $Q$: state-tracking weighting matrix
+- $R$: control-increment weighting matrix
+- $\mathbf{e}_k$: attitude tracking error
+- $\Delta\mathbf{u}_{a,k}$: control input increment
+
+The weighting matrix $Q$ determines the relative importance of
+attitude tracking performance, while $R$ penalizes large or rapid
+changes in the control input.
+
+A larger value of $Q$ generally places greater emphasis on
+tracking accuracy, whereas a larger value of $R$ produces smoother
+control actions.
+
+## 5.5 Constraints
+
+The optimization problem explicitly considers the physical
+constraints of the quadrotor.
+
+### Control Constraints
+
+The attitude control inputs are constrained by
+
+```math
+\mathbf{u}_{a,min}
+\leq
+\mathbf{u}_{a,k}
+\leq
+\mathbf{u}_{a,max}
+```
+
+where $\mathbf{u}_{a,min}$ and $\mathbf{u}_{a,max}$ represent the
+minimum and maximum allowable control moments.
+
+These constraints limit the achievable roll, pitch, and yaw
+control moments.
+
+### State Constraints
+
+The attitude states are also constrained by
+
+```math
+\mathbf{x}_{a,min}
+\leq
+\mathbf{x}_{a,k}
+\leq
+\mathbf{x}_{a,max}
+```
+
+These constraints limit the allowable operating region of the
+quadrotor.
+
+In particular, constraints on roll and pitch angles help prevent
+excessive attitude excursions and maintain operation within the
+valid region of the LPV model.
+
+### Control Increment Constraints
+
+The rate of change of the control input can additionally be
+constrained as
+
+```math
+\Delta\mathbf{u}_{a,min}
+\leq
+\Delta\mathbf{u}_{a,k}
+\leq
+\Delta\mathbf{u}_{a,max}
+```
+
+These constraints help prevent excessively rapid changes in the
+control moments.
+
+## 5.6 Receding-Horizon Control
+
+At each sampling instant, the MPC controller performs the
+following procedure:
+
+1. Measure or estimate the current attitude state.
+2. Update the LPV model using the current scheduling parameters.
+3. Predict the future state trajectory.
+4. Solve the constrained quadratic optimization problem.
+5. Apply only the first optimized control increment.
+6. Update the control input.
+7. Repeat the process at the next sampling instant.
+
+The control input is updated according to
+
+```math
+\mathbf{u}_{a,k}
+=
+\mathbf{u}_{a,k-1}
++
+\Delta\mathbf{u}_{a,k}^{*}
+```
+
+where $\Delta\mathbf{u}_{a,k}^{*}$ is the first element of the
+optimal control sequence.
+
+This receding-horizon strategy allows the controller to continuously
+adapt its control action according to the current state and
+operating condition.
+
+## 5.7 Controller Output
+
+The optimized attitude control inputs are
+
+```math
+\mathbf{U}_a
+=
+\begin{bmatrix}
+U_2 \\
+U_3 \\
+U_4
+\end{bmatrix}
+```
+
+Together with the total thrust $U_1$ generated by the outer-loop
+position controller, the complete virtual control vector is
+
+```math
+\mathbf{U}
+=
+\begin{bmatrix}
+U_1 \\
+U_2 \\
+U_3 \\
+U_4
+\end{bmatrix}
+```
+
+The four virtual control inputs represent:
+
+- $U_1$: total thrust
+- $U_2$: roll control moment
+- $U_3$: pitch control moment
+- $U_4$: yaw control moment
+
+These virtual control inputs are subsequently mapped to the
+individual rotor commands through the control allocation or
+motor-mixing matrix.
+
+The resulting rotor commands are then applied to the quadrotor
+plant model.
