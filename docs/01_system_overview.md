@@ -19,7 +19,9 @@ while maintaining the interaction between the two loops.
 
 ![Proposed Quadrotor Control System](../pics/control_architecture.png)
 
-*Figure: Block diagram of the proposed quadrotor control system.*
+<p align="center">
+  <i>Figure: Block diagram of the proposed quadrotor control system.</i>
+</p>
 
 
 ## 1.2 Control Architecture
