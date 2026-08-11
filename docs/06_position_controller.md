@@ -17,7 +17,7 @@ translational dynamics.
 
 <div align="center">
 
-<img src="../pics/position.png" alt="Position Controller Signal Flow Diagram" width="800">
+<img src="../pics/position_controller.png" alt="Position Controller Signal Flow Diagram" width="800">
 
 <p><em>Figure: Signal flow diagram illustrating the input-output interface of the position controller.</em></p>
 
