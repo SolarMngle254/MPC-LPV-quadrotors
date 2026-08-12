@@ -369,3 +369,19 @@ reference using the LPV-MPC controller.
 RRT* therefore operates as the high-level planning layer, while
 the cascaded Feedback Linearization and LPV-MPC controllers
 perform trajectory tracking.
+
+## 7.9 Simulation Result
+
+The complete planning and control framework is evaluated through
+MATLAB/Simulink simulation.
+
+The simulation demonstrates the generated RRT* trajectory and the
+resulting quadrotor trajectory tracking performance.
+
+<div align="center">
+
+<video src="../pics/sim/rrt_planner.mp4" controls loop muted width="800"></video>
+
+<p><em>Simulation: RRT* trajectory generation and quadrotor trajectory tracking.</em></p>
+
+</div>
