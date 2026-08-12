@@ -1,5 +1,21 @@
 # Quadrotor RRT* + FL + LPV-MPC
 
+> This repository was developed as part of my Second Project
+> at Ho Chi Minh City University of Technology - Viet Nam National University (HCMUT - VNU).
+>
+> The project focuses on quadrotor trajectory tracking using a
+> cascaded RRT* + Feedback Linearization + LPV-MPC framework,
+> developed from several research papers in the fields of UAV control,
+> LPV systems, and Model Predictive Control.
+>
+> The current work serves as the foundation for my undergraduate
+> thesis, where the framework is being extended toward a more advanced
+> autonomous UAV navigation and control system.
+>
+> **Note:** This repository is intentionally theory-oriented and
+> contains detailed mathematical modeling, controller derivations,
+> and algorithmic explanations.
+
 A hierarchical trajectory-tracking framework for a quadrotor UAV:
 
 **RRT\*** → **Feedback Linearization** → **LPV-MPC** → **Quadrotor**
@@ -349,3 +365,36 @@ The raw path is converted into a smooth trajectory:
 ```
 
 **RRT\*** provides the path, **Feedback Linearization** handles position tracking, and **LPV-MPC** handles constrained attitude tracking.
+
+## 10. References
+
+[1] C. Trapiello Fernández,
+*"Control of an UAV using LPV Techniques,"*
+Master's thesis,
+Universitat Politècnica de Catalunya,
+Barcelona, Spain, 2018.
+
+[2] S. Pal and A. K. Deb,
+*"Linear Parameter Varying Model-Based Predictive Trajectory Tracking Control of Quadrotor,"*
+in *2024 11th International Conference on Signal Processing and Integrated Networks (SPIN)*,
+Noida, India, 2024.
+
+[3] E. Alcalá, M. Facerías, and V. Puig,
+*"Optimal LPV-based Control and Estimation for Autonomous Vehicles,"*
+in *2020 28th Mediterranean Conference on Control and Automation (MED)*,
+Saint-Raphaël, France, 2020.
+
+[4] M. Misin,
+*"LPV MPC Control of an Autonomous Aerial Vehicle,"*
+in *2020 28th Mediterranean Conference on Control and Automation (MED)*,
+Saint-Raphaël, France, 2020.
+
+[5] P. Wang, Z. Man, Z. Cao, and J. Zheng,
+*"Dynamics Modelling and Linear Control of Quadcopter,"*
+in *2016 International Conference on Advanced Mechatronic Systems (ICAMechS)*,
+Melbourne, Australia, 2016.
+
+[6] K. Bouzgou, Y. Bestaoui, L. Benchikh, B. Ibari, and Z. Ahmed-Foitih,
+*"Dynamic Modeling, Simulation and PID Controller of Unmanned Aerial Vehicle UAV,"*
+in *2017 Seventh International Conference on Innovative Computing Technology (INTECH)*,
+Luton, UK, 2017.
