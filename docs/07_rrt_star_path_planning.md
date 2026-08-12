@@ -380,7 +380,9 @@ resulting quadrotor trajectory tracking performance.
 
 <div align="center">
 
-<video src="../pics/sim/rrt_planner.mp4" controls loop muted width="800"></video>
+<img src="../pics/sim/rrt_planner.gif"
+     alt="RRT* Simulation"
+     width="800">
 
 <p><em>Simulation: RRT* trajectory generation and quadrotor trajectory tracking.</em></p>
 
