@@ -1,5 +1,10 @@
 # Quadrotor RRT* + FL + LPV-MPC
 
+![MATLAB](https://img.shields.io/badge/MATLAB-R2025a-blue)
+![Control](https://img.shields.io/badge/Control-LPV--MPC-green)
+![Planning](https://img.shields.io/badge/Planning-RRT*-orange)
+![Status](https://img.shields.io/badge/Status-Academic_Project-red)
+
 > This repository was developed as part of my Second Project
 > at Ho Chi Minh City University of Technology - Viet Nam National University (HCMUT - VNU).
 >
