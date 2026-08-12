@@ -1,3 +1,21 @@
+## 8.1 RRT* Raw & Smooth Path Simulation Result
+
+The complete planning and control framework is evaluated through
+MATLAB/Simulink simulation.
+
+The simulation demonstrates the generated RRT* trajectory and the
+resulting quadrotor trajectory tracking performance.
+
+<div align="center">
+
+<img src="../pics/sim/rrt_planner.gif"
+     alt="RRT* Simulation"
+     width="800">
+
+<p><em>Figure: RRT* trajectory generation and quadrotor trajectory tracking.</em></p>
+
+</div>
+
 ## 8.2 RRT* Path and Trajectory Tracking Result
 
 The resulting RRT* path and the corresponding quadrotor trajectory
